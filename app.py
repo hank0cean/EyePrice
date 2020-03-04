@@ -1,20 +1,13 @@
-import re
-import requests
-from bs4 import BeautifulSoup
+from models.item import Item
 
-URL = "https://store.steampowered.com/app/653530/Return_of_the_Obra_Dinn/"
-TAG = "div"
-QUERY = {"class": "game_purchase_price price"}
+obra_dinn_url = "https://store.steampowered.com/app/653530/Return_of_the_Obra_Dinn/"
+hitman2_url = "https://store.steampowered.com/app/863550/HITMAN_2/"
+tag_name = "div"
+query = {"class": "game_purchase_price price"}
 
-response = requests.get("https://store.steampowered.com/app/653530/Return_of_the_Obra_Dinn/")
-content = response.content
-soup = BeautifulSoup(content, "html.parser")
-element = soup.find(TAG, QUERY)
-string_price = element.text.strip()
+obra_dinn = Item(obra_dinn_url, tag_name, query)
+# obra_dinn.save_to_mongo()
 
-pattern = re.compile(r"(\d+\.\d\d)")
-match = pattern.search(string_price)
-found_price = match.group(1)
-price = float(found_price)
+# items_loaded = Item.all()
 
-print(price)
+print(obra_dinn.load_price())

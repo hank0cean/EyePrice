@@ -6,7 +6,9 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-flask = "*"
+beautifulsoup4 = "*"
+requests = "*"
+pymongo = "*"
 
 [requires]
 python_version = "3.8"
