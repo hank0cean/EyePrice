@@ -17,17 +17,17 @@ class Database(object):
         Database.DATABASE[collection].insert(data)
 
     @staticmethod
-    def find_one(collection: str, query):
+    def find_one(collection: str, query: Dict) -> pymongo.cursor:
         return Database.DATABASE[collection].find_one(query)
 
     @staticmethod
-    def find(collection: str, query):
+    def find(collection: str, query: Dict) -> pymongo.cursor:
         return Database.DATABASE[collection].find(query)
 
     @staticmethod
-    def delete_one(collection: str, query):
+    def delete_one(collection: str, query: Dict) -> pymongo.cursor:
         return Database.DATABASE[collection].delete_one(query)
 
     @staticmethod
-    def delete_many(collection: str, query):
+    def delete_many(collection: str, query: Dict) -> pymongo.cursor:
         return Database.DATABASE[collection].delete_many(query)
