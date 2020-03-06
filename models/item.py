@@ -3,10 +3,12 @@ from typing import Dict
 import requests
 import uuid
 from bs4 import BeautifulSoup
+from common.database import Database
 
-class Item:
+class Item(object):
     def __init__(self, url, tag_name, query, _id: str = None):
         self.url = url
+        self.item_name = url.split('/')[5].replace('_', ' ')
         self.tag_name = tag_name
         self.query = query
         self.price = None
@@ -29,13 +31,32 @@ class Item:
 
         return self.price
 
-    def json(self):
+    def json(self) -> Dict:
         return {
             '_id': self._id,
             'url': self.url,
+            'item_name': self.item_name,
             'tag_name': self.tag_name,
             'query': self.query,
             'price': self.price,
         }
 
+    def save_to_mongo(self):
+        Database.insert(collection='items',
+                        data=self.json())
 
+    @classmethod
+    def all(cls):
+        items = Database.find(collection='items',
+                              query={})
+
+        return items
+
+
+    """
+    @classmethod
+    def find_by_item_name(cls, item_name):
+        
+        return Database.find(collection='items',
+                             query={'item_name': item_name})
+    """

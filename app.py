@@ -1,3 +1,4 @@
+#from common.database import Database
 from models.item import Item
 
 obra_dinn_url = "https://store.steampowered.com/app/653530/Return_of_the_Obra_Dinn/"
@@ -6,8 +7,12 @@ tag_name = "div"
 query = {"class": "game_purchase_price price"}
 
 obra_dinn = Item(obra_dinn_url, tag_name, query)
-# obra_dinn.save_to_mongo()
+obra_dinn.save_to_mongo()
 
-# items_loaded = Item.all()
+hitman2 = Item(hitman2_url, tag_name, query)
+hitman2.save_to_mongo()
 
-print(obra_dinn.load_price())
+items_loaded = Item.all()
+
+for item in items_loaded:
+    print(item)
