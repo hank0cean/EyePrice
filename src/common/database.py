@@ -17,7 +17,7 @@ class Database(object):
         Database.DATABASE[collection].insert(data)
 
     @staticmethod
-    def find_one(collection: str, query: Dict) -> pymongo.cursor:
+    def find_one(collection: str, query: Dict) -> Dict:
         return Database.DATABASE[collection].find_one(query)
 
     @staticmethod

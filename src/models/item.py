@@ -1,5 +1,5 @@
 import re
-from typing import Dict
+from typing import Dict, List
 import requests
 import uuid
 from bs4 import BeautifulSoup
@@ -7,8 +7,8 @@ from common.database import Database
 
 class Item(object):
     def __init__(self, url, tag_name, query, _id: str = None):
+        super().__init__()
         self.url = url
-        self.item_name = url.split('/')[5].replace('_', ' ')
         self.tag_name = tag_name
         self.query = query
         self.price = None
@@ -31,14 +31,15 @@ class Item(object):
 
         return self.price
 
+    def item_name(self) -> str:
+        return self.url.split('/')[5].replace('_', ' ')
+
     def json(self) -> Dict:
         return {
             '_id': self._id,
             'url': self.url,
-            'item_name': self.item_name,
             'tag_name': self.tag_name,
             'query': self.query,
-            'price': self.price,
         }
 
     def save_to_mongo(self):
@@ -46,12 +47,16 @@ class Item(object):
                         data=self.json())
 
     @classmethod
-    def all(cls):
-        items = Database.find(collection='items',
-                              query={})
+    def get_by_id(cls, _id):
+        item_json = Database.find_one(collection='items',
+                                      query={'_id': _id})
+        return cls(**item_json)
 
-        return items
-
+    @classmethod
+    def all(cls) -> List:
+        items_from_db = Database.find(collection='items',
+                                      query={})
+        return [cls(**item) for item in items_from_db]
 
     """
     @classmethod
