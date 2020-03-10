@@ -1,19 +1,22 @@
-import re
 from typing import Dict, List
+from uuid import uuid4
 import requests
-import uuid
+import re
 from bs4 import BeautifulSoup
 from common.database import Database
+from models.model import Model
 
-class Item(object):
+
+class Item(Model):
+    collection = "items"
+
     def __init__(self, url, tag_name, query, _id: str = None):
         super().__init__()
         self.url = url
         self.tag_name = tag_name
         self.query = query
         self.price = None
-        self.collection = "items"
-        self._id = _id or uuid.uuid4().hex
+        self._id = _id or uuid4().hex
 
     def __repr__(self):
         return f"<Item {self.url}>"
@@ -48,13 +51,13 @@ class Item(object):
 
     @classmethod
     def get_by_id(cls, _id):
-        item_json = Database.find_one(collection='items',
+        item_json = Database.find_one(collection=cls.collection,
                                       query={'_id': _id})
         return cls(**item_json)
 
     @classmethod
     def all(cls) -> List:
-        items_from_db = Database.find(collection='items',
+        items_from_db = Database.find(collection=cls.collection,
                                       query={})
         return [cls(**item) for item in items_from_db]
 

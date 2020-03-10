@@ -25,9 +25,19 @@ class Database(object):
         return Database.DATABASE[collection].find(query)
 
     @staticmethod
+    def update(collection: str, query: Dict, data: Dict) -> None:
+        Database.DATABASE[collection].update(query, data, upsert=True)
+
+    @staticmethod
+    def remove(collection: str, query: Dict) -> Dict:
+        return Database.DATABASE[collection].remove(query)
+
+    """
+    @staticmethod
     def delete_one(collection: str, query: Dict) -> pymongo.cursor:
         return Database.DATABASE[collection].delete_one(query)
 
     @staticmethod
     def delete_many(collection: str, query: Dict) -> pymongo.cursor:
         return Database.DATABASE[collection].delete_many(query)
+    """
