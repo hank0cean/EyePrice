@@ -1,6 +1,5 @@
-from typing import Dict, List
+from typing import Dict
 from uuid import uuid4
-from common.database import Database
 from models.item import Item
 from models.model import Model
 
@@ -29,13 +28,3 @@ class Alert(Model):
             "price_limit": self.price_limit,
             "_id": self._id
         }
-
-    def save_to_mongo(self):
-        Database.insert(collection=self.collection,
-                        query=self.json())
-
-    @classmethod
-    def all(cls) -> List:
-        alerts_from_db = Database.find(collection=cls.collection,
-                                       query={})
-        return [cls(**alert) for alert in alerts_from_db]

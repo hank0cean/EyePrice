@@ -1,11 +1,9 @@
-from typing import Dict, List
+from typing import Dict
 from uuid import uuid4
 import requests
 import re
 from bs4 import BeautifulSoup
-from common.database import Database
 from models.model import Model
-
 
 class Item(Model):
     collection = "items"
@@ -21,6 +19,14 @@ class Item(Model):
     def __repr__(self):
         return f"<Item {self.url}>"
 
+    def json(self) -> Dict:
+        return {
+            '_id': self._id,
+            'url': self.url,
+            'tag_name': self.tag_name,
+            'query': self.query,
+        }
+
     def load_price(self) -> float:
         response = requests.get(self.url)
         content = response.content
@@ -31,37 +37,12 @@ class Item(Model):
         match = pattern.search(string_price)
         found_price = match.group(1)
         self.price = float(found_price)
-
         return self.price
 
+    """
     def item_name(self) -> str:
         return self.url.split('/')[5].replace('_', ' ')
-
-    def json(self) -> Dict:
-        return {
-            '_id': self._id,
-            'url': self.url,
-            'tag_name': self.tag_name,
-            'query': self.query,
-        }
-
-    def save_to_mongo(self):
-        Database.insert(collection='items',
-                        data=self.json())
-
-    @classmethod
-    def get_by_id(cls, _id):
-        item_json = Database.find_one(collection=cls.collection,
-                                      query={'_id': _id})
-        return cls(**item_json)
-
-    @classmethod
-    def all(cls) -> List:
-        items_from_db = Database.find(collection=cls.collection,
-                                      query={})
-        return [cls(**item) for item in items_from_db]
-
-    """
+    
     @classmethod
     def find_by_item_name(cls, item_name):
         

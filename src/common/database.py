@@ -1,16 +1,9 @@
-__author__ = 'chansen'
-
 import pymongo
 from typing import Dict
 
 class Database(object):
     URI = "mongodb://127.0.0.1:27017/pricing"
     DATABASE = pymongo.MongoClient(URI).get_database()
-
-    @staticmethod
-    def initialize():
-        client = pymongo.MongoClient(Database.URI)
-        Database.DATABASE = client['eye-price-fullstack']
 
     @staticmethod
     def insert(collection: str, data: Dict):
@@ -32,7 +25,6 @@ class Database(object):
     def remove(collection: str, query: Dict) -> Dict:
         return Database.DATABASE[collection].remove(query)
 
-    """
     @staticmethod
     def delete_one(collection: str, query: Dict) -> pymongo.cursor:
         return Database.DATABASE[collection].delete_one(query)
@@ -40,4 +32,3 @@ class Database(object):
     @staticmethod
     def delete_many(collection: str, query: Dict) -> pymongo.cursor:
         return Database.DATABASE[collection].delete_many(query)
-    """
