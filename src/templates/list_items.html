@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <header><h1>All Items Saved</h1></header>
+    <section class="all-items-list">
+        <ol>
+            {% for item in items %}
+                <li class="list-group-item">
+                    <h3 class="item-name">{{ item.url }}</h3>
+                    <p class="item-price">{{ item.price }}</p>
+                    <br>
+                    <a href="{{ item.url }}">View</a>
+                </li>
+            {% endfor %}
+        </ol>
+    </section>
+
+{% endblock %}

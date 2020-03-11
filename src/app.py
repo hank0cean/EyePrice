@@ -1,20 +1,37 @@
-from common.database import Database
+from flask import Flask, render_template, request
 from models.item import Item
 
-obra_dinn_url = "https://store.steampowered.com/app/653530/Return_of_the_Obra_Dinn/"
-hitman2_url = "https://store.steampowered.com/app/863550/HITMAN_2/"
-tag_name = "div"
-query = {"class": "game_purchase_price price"}
+app = Flask(__name__)
 
-Database.delete_many(collection='items', query={})
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/home', methods=['GET', 'POST'])
+@app.route('/new_item', methods=['GET', 'POST'])
+def new_item():
+    if request.method == 'POST':
+        url = request.form['url']
+        tag_name = request.form['tag_name']
+        query = request.form['query']
 
-obra_dinn = Item(obra_dinn_url, tag_name, query)
-obra_dinn.save_to_mongo()
+        Item(url, tag_name, query).save_to_mongo()
 
-hitman2 = Item(hitman2_url, tag_name, query)
-hitman2.save_to_mongo()
+    return render_template('new_item.html')
 
-items_loaded = Item.all()
+@app.route('/steam', methods=['GET', 'POST'])
+def new_steam_item():
+    if request.method == 'POST':
+        url = request.form['url']
+        tag_name = 'div'
+        query = {"class": "game_purchase_price price"}
 
-for item in items_loaded:
-    print(item)
+        Item(url, tag_name, query).save_to_mongo()
+
+    return render_template('new_steam_item.html')
+
+@app.route('/items', methods=['GET'])
+def list_items():
+    items = Item.all()
+    return render_template('list_items.html', items=items)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

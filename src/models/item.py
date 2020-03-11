@@ -41,8 +41,8 @@ class Item(Model):
 
     """
     def item_name(self) -> str:
-        return self.url.split('/')[5].replace('_', ' ')
-    
+        return self.url.split('/')[3].replace('_', ' ')
+
     @classmethod
     def find_by_item_name(cls, item_name):
         
