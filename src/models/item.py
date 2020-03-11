@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from models.model import Model
 
 class Item(Model):
-    collection = "items"
+    collection = 'items'
 
     def __init__(self, url, tag_name, query, _id: str = None):
         super().__init__()
