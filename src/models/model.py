@@ -1,9 +1,10 @@
-from typing import List, Dict
+from typing import Dict, List
 from abc import ABCMeta, abstractmethod
 from common.database import Database
 
 class Model(metaclass=ABCMeta):
-    collection = 'models'
+    collection: str
+    _id: str
 
     def __init__(self, *args, **kwargs):
         pass
