@@ -40,6 +40,9 @@ class Item(Model):
         return self.price
 
     """
+    @staticmethod
+    def validate(url, tag_name, query):
+
     def item_name(self) -> str:
         return self.url.split('/')[3].replace('_', ' ')
 
