@@ -4,7 +4,6 @@ from models.item import Item
 
 item_blueprint = Blueprint('items', __name__)
 
-
 @item_blueprint.route('/new', methods=['GET', 'POST'])
 def new_item():
     if request.method == 'POST':
@@ -31,4 +30,5 @@ def new_steam_item():
 @item_blueprint.route('/all', methods=['GET'])
 def all_items():
     items = Item.all()
-    return render_template('items/all.html', items=items)
+    return render_template('items/all_items.html', items=items)
+
