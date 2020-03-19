@@ -9,7 +9,7 @@
             <a class="btn btn-outline-primary" href="{{ url_for('items.new_item') }}">
                 New Item
             </a>
-            <a class="btn btn-outline-primary" href="/">
+            <a class="btn btn-outline-primary" href="{{ url_for('alerts.new_alert') }}">
                 New Alert
             </a>
         </div>
@@ -23,8 +23,16 @@
         <div>
             {% for item in items %}
                 <li class="list-group-item">
-                    <h3 class="item-name">{{ item.url }}</h3>
-                    <p class="item-price">{{ item.price }}</p>
+                    <h3 class="item-name">{{ item.item_name }}</h3>
+                    {% if item.item_price is not none: %}
+                        <p class="item-price">{{ item.item_price }}</p>
+                    {% else %}
+                        <p class="item-price">{{ item.item_price }}</p>
+                        <small class="form-text text-muted" id="priceNoneHelp">
+                            No result for item price search.
+                            Make sure item tag name and query were correct.
+                        </small>
+                    {% endif %}
                     <br>
                     <a href="{{ item.url }}">View</a>
                 </li>

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<header><h1>All Alerts Saved</h1></header>
+<section class="all-alerts-list">
+    <div class="btn-toolbar mb-3">
+        <div class="btn-group mr-2">
+            <a class="btn btn-outline-primary" href="{{ url_for('items.new_item') }}">
+                New Item
+            </a>
+            <a class="btn btn-outline-primary" href="{{ url_for('alerts.new_alert') }}">
+                New Alert
+            </a>
+        </div>
+        <div class="btn-group">
+            <a class="btn btn-outline-secondary" href="{{ url_for('items.new_steam_item') }}">
+                New Steam Item
+            </a>
+        </div>
+    </div>
+    <ol class="list-group mb-3">
+        <div>
+            {% for alert in alerts %}
+                <li class="list-group-alert">
+                    <h3>{{ alert.item.item_name }}</h3>
+                    <h5 class="alert-item-id">{{ alert.item_id }}</h5>
+                    <p class="alert-price-limit">{{ alert.price_limit }}</p>
+                    <br>
+                    <a href="{{ alert.item.url }}">View</a>
+                </li>
+            {% endfor %}
+        </div>
+    </ol>
+</section>
+
+{% endblock %}

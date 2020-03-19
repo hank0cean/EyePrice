@@ -8,6 +8,14 @@
 <section class="new-item-form">
     <form method="post">
         <div class="form-group">
+            <label for="item_name">Item Name</label>
+            <input type="text" class="form-control" id="item_name" name="item_name"
+                   placeholder="Item Name" aria-describedby="itemNameHelp"/>
+            <small class="form-text text-muted" id="itemNameHelp">
+                Enter name to refer to for the item.
+            </small>
+        </div>
+        <div class="form-group">
             <label for="url">URL</label>
             <input type="text" class="form-control" id="url" name="url"
                    placeholder="https://..." aria-describedby="urlHelp"/>

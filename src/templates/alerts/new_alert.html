@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<header>
+    <h1>Add New Alert for Product</h1>
+</header>
+<section class="new-alert-form">
+    <form method="post">
+        <div class="form-group">
+            <label for="item_id">Item ID</label>
+            <input type="text" class="form-control" id="item_id" name="item_id"
+                   placeholder="Item ID" aria-describedby="itemIdHelp"/>
+            <small class="form-text text-muted" id="itemIdHelp">
+                Enter full item_id for the website item.
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="price_limit">Price Limit</label>
+            <input type="text" class="form-control" id="price_limit" name="price_limit"
+                   placeholder="0.00" aria-describedby="priceLimitHelp"/>
+            <small class="form-text text-muted" id="priceLimitHelp">
+                Enter a price limit for the item.
+            </small>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+
+</section>
+
+{% endblock %}
