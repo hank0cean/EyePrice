@@ -33,7 +33,6 @@ class Item(Model):
         content = requests.get(self.url).content
         soup = BeautifulSoup(content, "html.parser")
         price_elem = soup.find(self.tag_name, self.query)
-        print(price_elem)
         if price_elem is not None:
             price_string = price_elem.text.strip()
             pattern = re.compile(r"(\d+,?\d+\.\d\d)")
