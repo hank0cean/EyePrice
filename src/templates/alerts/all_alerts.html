@@ -9,9 +9,6 @@
             <a class="btn btn-outline-primary" href="{{ url_for('items.new_item') }}">
                 New Item
             </a>
-            <a class="btn btn-outline-primary" href="{{ url_for('alerts.new_alert') }}">
-                New Alert
-            </a>
         </div>
         <div class="btn-group">
             <a class="btn btn-outline-secondary" href="{{ url_for('items.new_steam_item') }}">
@@ -24,8 +21,9 @@
             {% for alert in alerts %}
                 <li class="list-group-alert">
                     <h3>{{ alert.item.item_name }}</h3>
-                    <h5 class="alert-item-id">{{ alert.item_id }}</h5>
-                    <p class="alert-price-limit">{{ alert.price_limit }}</p>
+                    <h4 class="alert-item-id mb-3">{{ alert.item_id }}</h4>
+                    <h6>Alert Price Limit</h6>
+                    <p class="alert-price-limit" id="alert-price-limit">{{ alert.price_limit }}</p>
                     <br>
                     <a href="{{ alert.item.url }}">View</a>
                 </li>

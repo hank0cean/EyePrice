@@ -9,9 +9,6 @@
             <a class="btn btn-outline-primary" href="{{ url_for('items.new_item') }}">
                 New Item
             </a>
-            <a class="btn btn-outline-primary" href="{{ url_for('alerts.new_alert') }}">
-                New Alert
-            </a>
         </div>
         <div class="btn-group">
             <a class="btn btn-outline-secondary" href="{{ url_for('items.new_steam_item') }}">
@@ -24,6 +21,7 @@
             {% for item in items %}
                 <li class="list-group-item">
                     <h3 class="item-name">{{ item.item_name }}</h3>
+                    <label>Item Price</label>
                     {% if item.item_price is not none: %}
                         <p class="item-price">{{ item.item_price }}</p>
                     {% else %}
@@ -34,7 +32,16 @@
                         </small>
                     {% endif %}
                     <br>
-                    <a href="{{ item.url }}">View</a>
+                    <div class="btn-group mr-2">
+                        <a class="btn btn-danger" href="/alerts/new/{{ item._id }}">
+                            New Alert Price
+                        </a>
+                    </div>
+                    <div class="btn-group mr-2">
+                        <a class="btn btn-success" href="{{ item.url }}">
+                            Go to seller's page
+                        </a>
+                    </div>
                 </li>
             {% endfor %}
         </div>

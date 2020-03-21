@@ -6,13 +6,20 @@
               href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
               crossorigin="anonymous">
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>=
         <title>Title</title>
     </head>
     <body>
+        <div class="container header-group">
+            {% include 'header.html' %}
+        </div>
         <div class="content container body-group">
             {% block content %}
             {% endblock %}
         </div>
+        <div class="container footer-group">
+            {% include 'footer.html' %}
+        </div>
     </body>
 </html>
-
