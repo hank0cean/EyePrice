@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<header>
+    <h1>Add New Store</h1>
+</header>
+<section class="new-store-form">
+    <form method="post">
+        <div class="form-group">
+            <label for="store_name">Store Name</label>
+            <input type="text" class="form-control" id="store_name" name="store_name"
+                   placeholder="Store Name" aria-describedby="storeNameHelp"/>
+            <small class="form-text text-muted" id="storeNameHelp">
+                Enter name to refer to for the store.
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="url">URL</label>
+            <input type="text" class="form-control" id="url" name="url"
+                   placeholder="https://www.example.com/" aria-describedby="urlHelp"/>
+            <small class="form-text text-muted" id="urlHelp">
+                Enter the full URL for the website.
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="tag_name">Tag name</label>
+            <input type="text" class="form-control" id="tag_name" name="tag_name"
+                   placeholder="span" aria-describedby="tagNameHelp"/>
+            <small class="form-text text-muted" id="tagNameHelp">
+                Enter HTML tag name for the website item's price.
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="query">Query</label>
+            <input type="text" class="form-control" id="query" name="query"
+                   placeholder='{"id": "..."}' aria-describedby="queryHelp"/>
+            <small class="form-text text-muted" id="queryHelp">
+                Enter id in .json form found in the HTML tag for the website item's price.
+            </small>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+
+</section>
+
+{% endblock %}

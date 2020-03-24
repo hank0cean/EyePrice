@@ -12,11 +12,15 @@ class Alert(Model):
         self.item_id = item_id
         self.item = Item.get_by_id(item_id)
         self.price_limit = price_limit
+        self.recent_price = None
         self._id = _id or uuid4().hex
+
+    def __repr__(self):
+        return f"<Alert {self.item_id}>"
 
     def load_item_price(self) -> float:
         self.item.load_price()
-        return self.item.price
+        self.recent_price = self.item.item_price
 
     def notify_price_reached(self):
         if self.item.price < self.price_limit:

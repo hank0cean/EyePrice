@@ -16,16 +16,6 @@ def new_item():
             item.save_to_mongo()
     return render_template('items/new_item.html')
 
-@item_blueprint.route('/new/steam', methods=['GET', 'POST'])
-def new_steam_item():
-    if request.method == 'POST':
-        url = request.form['url']
-        tag_name = 'div'
-        query = {"class": "game_purchase_price price"}
-        item_name = url.split('/')[5].replace('_', ' ')
-        Item(url, tag_name, query, item_name).save_to_mongo()
-    return render_template('items/new_steam_item.html')
-
 @item_blueprint.route('/all', methods=['GET'])
 def all_items():
     items = Item.all()

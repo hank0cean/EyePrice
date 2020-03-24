@@ -10,17 +10,12 @@
                 New Item
             </a>
         </div>
-        <div class="btn-group">
-            <a class="btn btn-outline-secondary" href="{{ url_for('items.new_steam_item') }}">
-                New Steam Item
-            </a>
-        </div>
     </div>
     <ol class="list-group mb-3">
         <div>
             {% for item in items %}
                 <li class="list-group-item">
-                    <h3 class="item-name">{{ item.item_name }}</h3>
+                    <h3 class="item-name">{{ item.url }}</h3>
                     <label>Item Price</label>
                     {% if item.item_price is not none: %}
                         <p class="item-price">{{ item.item_price }}</p>
@@ -31,12 +26,6 @@
                             Make sure item tag name and query were correct.
                         </small>
                     {% endif %}
-                    <br>
-                    <div class="btn-group mr-2">
-                        <a class="btn btn-danger" href="/alerts/new/{{ item._id }}">
-                            New Alert Price
-                        </a>
-                    </div>
                     <div class="btn-group mr-2">
                         <a class="btn btn-success" href="{{ item.url }}">
                             Go to seller's page

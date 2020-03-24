@@ -8,12 +8,11 @@ from models.model import Model
 class Item(Model):
     collection = 'items'
 
-    def __init__(self, url, tag_name, query, item_name, _id: str = None):
+    def __init__(self, url, tag_name, query, _id: str = None):
         super().__init__()
         self.url = url
         self.tag_name = tag_name
         self.query = query
-        self.item_name = item_name
         self.item_price = None
         self._id = _id or uuid4().hex
 
@@ -25,7 +24,6 @@ class Item(Model):
             'url': self.url,
             'tag_name': self.tag_name,
             'query': self.query,
-            'item_name': self.item_name,
             '_id': self._id
         }
 
@@ -40,17 +38,3 @@ class Item(Model):
             found_price = match.group(1)
             self.item_price = float(found_price)
         return self.item_price
-
-    """
-    @staticmethod
-    def validate(url, tag_name, query):
-
-    def item_name(self) -> str:
-        return self.url.split('/')[3].replace('_', ' ')
-
-    @classmethod
-    def find_by_item_name(cls, item_name):
-        
-        return Database.find(collection='items',
-                             query={'item_name': item_name})
-    """

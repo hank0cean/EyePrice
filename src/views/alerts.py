@@ -1,23 +1,24 @@
-import json
-from flask import Blueprint, redirect, request, render_template, url_for
+from flask import Blueprint, request, render_template
 from models.item import Item
 from models.alert import Alert
+from models.store import Store
 
 alert_blueprint = Blueprint('alerts', __name__)
 
-@alert_blueprint.route('/new/<string:item_id>', methods=['GET', 'POST'])
-def new_alert(item_id):
-    if Item.get_by_id(item_id) is not None:
-        if request.method == 'POST':
-            price_limit = request.form['price_limit']
-            Alert(item_id, price_limit).save_to_mongo()
-            return redirect(url_for('alerts.all_alerts'))
-        item = Item.get_by_id(item_id)
-        return render_template('alerts/new_alert.html', item=item)
-    else:
-        return render_template('items/all_items.html')
+@alert_blueprint.route('/new', methods=['GET', 'POST'])
+def new_alert():
+    if request.method == 'POST':
+        item_url = request.form['item_url']
+        price_limit = float(request.form['price_limit'])
+        store = Store.find_by_url(item_url)
+        item = Item(item_url, store.tag_name, store.query)
+        item.save_to_mongo()
+        Alert(item._id, price_limit).save_to_mongo()
+    return render_template('alerts/new_alert.html')
 
 @alert_blueprint.route('/all', methods=['GET'])
 def all_alerts():
     alerts = Alert.all()
+    for alert in alerts:
+        alert.load_item_price()
     return render_template('alerts/all_alerts.html', alerts=alerts)
