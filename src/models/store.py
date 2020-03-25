@@ -4,7 +4,7 @@ from uuid import uuid4
 import re
 from models.model import Model
 
-@dataclass
+@dataclass(eq=False)
 class Store(Model):
     collection: str = field(default='stores', init=False)
     name: str
@@ -12,9 +12,6 @@ class Store(Model):
     tag_name: str
     query: Dict
     _id: str = field(default_factory=lambda: uuid4().hex)
-
-    def __repr__(self):
-        return f'<Store {self.url_prefix}>'
 
     def json(self) -> Dict:
         return {

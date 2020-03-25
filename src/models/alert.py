@@ -4,7 +4,7 @@ from uuid import uuid4
 from models.model import Model
 from models.item import Item
 
-@dataclass
+@dataclass(eq=False)
 class Alert(Model):
     collection: str = field(default='alerts', init=False)
     item_id: str
@@ -12,9 +12,6 @@ class Alert(Model):
     price_limit: float
     recent_price: float = field(default=None)
     _id: str = field(default_factory=lambda: uuid4().hex)
-
-    def __repr__(self):
-        return f"<Alert {self.item_id}>"
 
     def load_item_price(self) -> float:
         self.recent_price = Item.get_by_id(self.item_id).load_price()

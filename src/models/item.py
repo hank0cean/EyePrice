@@ -6,7 +6,7 @@ import re
 from bs4 import BeautifulSoup
 from models.model import Model
 
-@dataclass
+@dataclass(eq=False)
 class Item(Model):
     collection: str = field(default='items', init=False)
     url: str
@@ -14,9 +14,6 @@ class Item(Model):
     query: Dict
     item_price: float = field(default=None)
     _id: str = field(default_factory=lambda: uuid4().hex)
-
-    def __repr__(self):
-        return f"<Item {self.url}>"
 
     def json(self) -> Dict:
         return {
