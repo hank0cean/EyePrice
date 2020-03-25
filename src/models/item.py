@@ -1,3 +1,4 @@
+from dataclasses import dataclass, field
 from typing import Dict
 from uuid import uuid4
 import requests
@@ -5,16 +6,14 @@ import re
 from bs4 import BeautifulSoup
 from models.model import Model
 
+@dataclass
 class Item(Model):
-    collection = 'items'
-
-    def __init__(self, url, tag_name, query, _id: str = None):
-        super().__init__()
-        self.url = url
-        self.tag_name = tag_name
-        self.query = query
-        self.item_price = None
-        self._id = _id or uuid4().hex
+    collection: str = field(default='items', init=False)
+    url: str
+    tag_name: str
+    query: Dict
+    item_price: float = field(default=None)
+    _id: str = field(default_factory=lambda: uuid4().hex)
 
     def __repr__(self):
         return f"<Item {self.url}>"

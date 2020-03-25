@@ -1,34 +1,34 @@
+from dataclasses import dataclass, field
 from typing import Dict
 from uuid import uuid4
-from models.item import Item
 from models.model import Model
+from models.item import Item
 
-
+@dataclass
 class Alert(Model):
-    collection = 'alerts'
-
-    def __init__(self, item_id: str, price_limit: float, _id: str = None):
-        super().__init__()
-        self.item_id = item_id
-        self.item = Item.get_by_id(item_id)
-        self.price_limit = price_limit
-        self.recent_price = None
-        self._id = _id or uuid4().hex
+    collection: str = field(default='alerts', init=False)
+    item_id: str
+    item_url: str
+    price_limit: float
+    recent_price: float = field(default=None)
+    _id: str = field(default_factory=lambda: uuid4().hex)
 
     def __repr__(self):
         return f"<Alert {self.item_id}>"
 
     def load_item_price(self) -> float:
-        self.item.load_price()
-        self.recent_price = self.item.item_price
+        self.recent_price = Item.get_by_id(self.item_id).load_price()
 
     def notify_price_reached(self):
-        if self.item.price < self.price_limit:
-            print(f"Item {self.item} has reached a price under {self.price_limit}. Latest price: {self.item.price}")
+        self.load_item_price()
+        if self.recent_price < self.price_limit:
+            print(f"Item {self.item_id} has reached a price under {self.price_limit}. Latest price: {self.recent_price}")
 
     def json(self) -> Dict:
         return {
             "item_id": self.item_id,
+            "item_url": self.item_url,
             "price_limit": self.price_limit,
+            "recent_price": self.recent_price,
             "_id": self._id
         }
