@@ -12,7 +12,8 @@ class Item(Model):
     url: str
     tag_name: str
     query: Dict
-    item_price: float = field(default=None)
+    name: str = field(default=None)
+    price: float = field(default=None)
     _id: str = field(default_factory=lambda: uuid4().hex)
 
     def json(self) -> Dict:
@@ -20,6 +21,8 @@ class Item(Model):
             'url': self.url,
             'tag_name': self.tag_name,
             'query': self.query,
+            'name': self.name,
+            'price': self.price,
             '_id': self._id
         }
 
@@ -32,5 +35,5 @@ class Item(Model):
             pattern = re.compile(r"(\d+,?\d+\.\d\d)")
             match = pattern.search(price_string)
             found_price = match.group(1)
-            self.item_price = float(found_price)
-        return self.item_price
+            self.price = float(found_price)
+        return self.price

@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Dict
 from uuid import uuid4
+import json
 from models.model import Model
 from models.item import Item
 
@@ -8,27 +9,20 @@ from models.item import Item
 class Alert(Model):
     collection: str = field(default='alerts', init=False)
     item_id: str
-    item_url: str
     price_limit: float
-    name: str = field(default=None)
-    recent_price: float = field(default=None)
     _id: str = field(default_factory=lambda: uuid4().hex)
+
+    def __post_init__(self):
+        self.item = Item.get_by_id(self.item_id)
 
     def json(self) -> Dict:
         return {
             "item_id": self.item_id,
-            "name": self.name,
-            "item_url": self.item_url,
             "price_limit": self.price_limit,
-            "recent_price": self.recent_price,
             "_id": self._id
         }
 
-    def load_item_price(self) -> float:
-        self.recent_price = Item.get_by_id(self.item_id).load_price()
-
     def notify_price_reached(self):
-        self.load_item_price()
-        if self.recent_price < self.price_limit:
-            print(f"Item {self.item_id} has reached a price under {self.price_limit}. Latest price: {self.recent_price}")
-
+        self.item.load_price()
+        if self.item.price < self.price_limit:
+            print(f"Item {self.item._id} has reached a price under {self.price_limit}. Latest price: {self.item.price}")

@@ -8,18 +8,19 @@ alert_blueprint = Blueprint('alerts', __name__)
 @alert_blueprint.route('/new', methods=['GET', 'POST'])
 def new_alert():
     if request.method == 'POST':
-        alert_name = request.form['alert_name']
+        name = request.form['name']
         item_url = request.form['item_url']
         price_limit = float(request.form['price_limit'])
         store = Store.find_by_url(item_url)
-        item = Item(item_url, store.tag_name, store.query)
+        item = Item(item_url, store.tag_name, store.query, name)
+        item.load_price()
         item.save_to_mongo()
-        Alert(item._id, alert_name, item_url, price_limit).save_to_mongo()
+        Alert(item._id, price_limit).save_to_mongo()
     return render_template('alerts/new_alert.html')
 
 @alert_blueprint.route('/all', methods=['GET'])
 def all_alerts():
     alerts = Alert.all()
     for alert in alerts:
-        alert.load_item_price()
+        alert.item.load_price()
     return render_template('alerts/all_alerts.html', alerts=alerts)

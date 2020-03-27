@@ -16,12 +16,12 @@
             {% for alert in alerts %}
                 <li class="list-group-alert">
                     <div class="list-group-item">
-                        <h4 class="alert-item-id mb-3">{{ alert.name }}</h4>
+                        <h4 class="alert-item-id mb-3">{{ alert.item.name }}</h4>
                         <h6>Alert Price Limit</h6>
-                        <h3>{{ alert.recent_price }}</h3>
+                        <h3>{{ alert.item.recent_price }}</h3>
                         <p class="alert-price-limit" id="alert-price-limit">{{ alert.price_limit }}</p>
                         <br>
-                        <a href="{{ alert.item_url }}">View</a>
+                        <a href="{{ alert.item.url }}">View</a>
                     </div>
                 </li>
             {% endfor %}
