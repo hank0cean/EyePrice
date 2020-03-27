@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+
+<header><h1>All Stores Saved</h1></header>
+<section class="all-stores-list">
+    <ul class="list-group mb-3">
+        <div>
+            {% for store in stores %}
+                <li class="list-group-alert">
+                    <div class="list-group-item">
+                        <h3 class="alert-item-id mb-3">
+                            <a href="{{ store.url_prefix }}">
+                                {{ store.name }}
+                            </a>
+                        </h3>
+                        <h5>Store Root URL</h5>
+                        <p>{{ store.url_prefix }}</p>
+                        <h5>Store Tag Name</h5>
+                        <p>{{ store.tag_name }}</p>
+                        <h5>Store Query .json</h5>
+                        <p>{{ store.query }}</p>
+                        <br>
+                        <a class="btn btn-primary" href="{{ store.url_prefix }}">Go to site...</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </div>
+    </ul>
+</section>
+
+{% endblock %}

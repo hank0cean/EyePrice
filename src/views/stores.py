@@ -16,7 +16,8 @@ def new_store():
             store.save_to_mongo()
     return render_template('stores/new_store.html')
 
-
+@store_blueprint.route('/', methods=['GET'])
 @store_blueprint.route('/all', methods=['GET'])
 def all_stores():
-    pass
+    stores = Store.all()
+    return render_template('stores/all_stores.html', stores=stores)

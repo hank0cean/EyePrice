@@ -1,1 +1,20 @@
-<p>This is the header</p>
+<p>
+    This is the header
+</p>
+<div class="btn-toolbar mb-3">
+    <div class="btn-group mr-2">
+        <a class="btn btn-outline-primary" href="{{ url_for('stores.new_store') }}">
+            New Store
+        </a>
+    </div>
+    <div class="btn-group mr-2">
+        <a class="btn btn-outline-primary" href="{{ url_for('items.new_item') }}">
+            New Item
+        </a>
+    </div>
+    <div class="btn-group mr-2">
+        <a class="btn btn-outline-primary" href="{{ url_for('alerts.new_alert') }}">
+            New Alert
+        </a>
+    </div>
+</div>

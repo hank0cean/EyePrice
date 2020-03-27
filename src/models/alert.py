@@ -1,7 +1,6 @@
 from dataclasses import dataclass, field
 from typing import Dict
 from uuid import uuid4
-import json
 from models.model import Model
 from models.item import Item
 
