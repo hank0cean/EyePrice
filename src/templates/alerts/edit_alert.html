@@ -3,30 +3,32 @@
 {% block content %}
 
 <header>
-    <h1>Add New Alert for Product</h1>
+    <h1>Edit Alert</h1>
 </header>
-<section class="new-alert-form">
+<section class="edit-alert-form">
     <form method="post">
         <div class="form-group">
-            <label for="name">Name for Item Alert</label>
+            <label for="name">Alert Name</label>
             <input type="text" class="form-control" id="name" name="name"
-                   placeholder="Name" aria-describedby="NameHelp">
+                   placeholder="{{ alert.item.name }}" aria-describedby="NameHelp" disabled>
         </div>
         <div class="form-group">
             <label for="item_url">Item URL</label>
             <input type="text" class="form-control" id="item_url" name="item_url"
-                   placeholder="https://..." aria-describedby="itemUrlHelp">
+                   placeholder="{{ alert.item.url }}" aria-describedby="itemUrlHelp" disabled>
         </div>
         <div class="form-group">
             <label for="price_limit">Price Limit</label>
             <input type="text" class="form-control" id="price_limit" name="price_limit"
-                   placeholder="0.00" aria-describedby="priceLimitHelp"/>
+                   placeholder="{{ alert.price_limit }}" value="{{ alert.price_limit }}" aria-describedby="priceLimitHelp"/>
             <small class="form-text text-muted" id="priceLimitHelp">
-                Enter a price limit for the item.
+                Edit to set a new price limit for this Alert.
             </small>
         </div>
-        <button type="submit" class="btn btn-primary" >Create</button>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a class="btn btn-danger" href="{{ url_for('alerts.all_alerts') }}">Cancel</a>
     </form>
 </section>
+
 
 {% endblock %}

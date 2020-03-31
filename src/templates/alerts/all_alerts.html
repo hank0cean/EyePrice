@@ -4,18 +4,27 @@
 
 <header><h1>All Alerts Saved</h1></header>
 <section class="all-alerts-list">
-    <ul class="list-group mb-3">
+    <ul class="list-group mb-3" style="list-style-type:none;">
         <div>
             {% for alert in alerts %}
-                <li class="list-group-alert">
-                    <div class="list-group-item">
-                        <h4 class="alert-item-id mb-3">{{ alert.item.name }}</h4>
+                <li class="list-group-alert mb-2">
+                    <div class="card list-group-item" style="width: 20rem;">
+                        <h4 class="card-title alert-item-id mb-3">{{ alert.item.name }}</h4>
                         <h6>Item Most Recent Price</h6>
-                        <p>{{ alert.item.price }}</p>
+                        <p class="card-text">{{ alert.item.price }}</p>
                         <h6>Alert Price Limit</h6>
-                        <p class="alert-price-limit" id="alert-price-limit">{{ alert.price_limit }}</p>
-                        <br>
-                        <a href="{{ alert.item.url }}">View</a>
+                        <p class="card-text" id="alert-price-limit">{{ alert.price_limit }}</p>
+                        <div class="btn-toolbar" style="display: flex; justify-content:center;">
+                            <a class="btn btn-success mr-2" href="{{ alert.item.url }}">
+                                View
+                            </a>
+                            <a class="btn btn-primary mr-2" href="{{ url_for('alerts.edit_alert', alert_id=alert._id) }}">
+                                Edit
+                            </a>
+                            <a class="btn btn-danger mr-2" href="{{ url_for('alerts.delete_alert', alert_id=alert._id) }}">
+                                Delete
+                            </a>
+                        </div>
                     </div>
                 </li>
             {% endfor %}
