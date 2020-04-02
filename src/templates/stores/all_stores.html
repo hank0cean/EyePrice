@@ -24,7 +24,8 @@
                             <a class="btn btn-success mr-2" href="{{ store.url_prefix }}">
                                 Visit
                             </a>
-                            <a class="btn btn-primary mr-2" href="{{ url_for('stores.edit_store', store_id=store._id) }}">
+                            <a class="btn btn-primary mr-2"
+                               href="{{ url_for('stores.edit_store', store_id=store._id) }}">
                                 Edit
                             </a>
                             <a class="btn btn-danger mr-2" href="{{ url_for('stores.delete_store', store_id=store._id) }}">

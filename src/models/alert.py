@@ -16,9 +16,9 @@ class Alert(Model):
 
     def json(self) -> Dict:
         return {
-            "item_id": self.item_id,
-            "price_limit": self.price_limit,
-            "_id": self._id
+            'item_id': self.item_id,
+            'price_limit': self.price_limit,
+            '_id': self._id
         }
 
     def notify_price_reached(self):
