@@ -31,14 +31,12 @@ class User(Model):
     def validate_register(cls, email: str, password: str) -> bool:
         if not Utils.validate_email(email):
             raise UserErrors.InvalidEmailError('Invalid e-mail format.')
-        """
-        if not Utils.validate_password(password):
-            raise UserErrors.InvalidPasswordError('Invalid password format.')
-        """
         try:
             cls.find_by_email(email)
             raise UserErrors.UserAlreadyRegisteredError('There is an account already registered to that email.')
         except UserErrors.UserNotFoundError:
+            if not Utils.validate_password(password):
+                raise UserErrors.InvalidPasswordError('Invalid password format.')
             User(email, Utils.hash_password(password)).save_to_mongo()
             return True
 
