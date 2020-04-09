@@ -1,8 +1,7 @@
 from dataclasses import dataclass, field
 from uuid import uuid4
-from typing import Dict, List
+from typing import Dict
 
-from common.database import Database
 from common.utils import Utils
 from models.model import Model
 import models.user.errors as UserErrors
@@ -11,7 +10,7 @@ import models.user.errors as UserErrors
 class User(Model):
     collection: str = field(default='users', init=False)
     email: str
-    password: str = field(repr=True)
+    password: str = field(repr=False)
     _id: str = field(default_factory=lambda: uuid4().hex)
 
     def json(self) -> Dict:
@@ -46,7 +45,6 @@ class User(Model):
     @classmethod
     def validate_login(cls, email: str, password: str) -> bool:
         user = cls.find_by_email(email)
-        print(user)
         if not user:
             raise UserErrors.UserNotFoundError('User not found.')
         if not Utils.verify_password(password, user.password):
