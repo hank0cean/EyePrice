@@ -10,6 +10,7 @@ beautifulsoup4 = "*"
 requests = "*"
 pymongo = "*"
 flask = "*"
+passlib = "*"
 
 [requires]
 python_version = "3.7"

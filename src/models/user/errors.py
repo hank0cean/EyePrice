@@ -5,6 +5,9 @@ class UserError(Exception):
 class UserNotFoundError(UserError):
     pass
 
+class PasswordEmailNotMatching(UserError):
+    pass
+
 class UserAlreadyRegisteredError(UserError):
     pass
 

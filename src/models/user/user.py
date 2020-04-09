@@ -11,7 +11,7 @@ import models.user.errors as UserErrors
 class User(Model):
     collection: str = field(default='users', init=False)
     email: str
-    password: str = field(repr=False)
+    password: str = field(repr=True)
     _id: str = field(default_factory=lambda: uuid4().hex)
 
     def json(self) -> Dict:
@@ -38,15 +38,17 @@ class User(Model):
         """
         try:
             cls.find_by_email(email)
+            raise UserErrors.UserAlreadyRegisteredError('There is an account already registered to that email.')
         except UserErrors.UserNotFoundError:
-            User(email, password).save_to_mongo()
+            User(email, Utils.hash_password(password)).save_to_mongo()
             return True
-        return UserErrors.UserNotFoundError
 
     @classmethod
     def validate_login(cls, email: str, password: str) -> bool:
-        try:
-            cls.find_by_email(email)
-            return True
-        except UserErrors.UserNotFoundError:
-            return False
+        user = cls.find_by_email(email)
+        print(user)
+        if not user:
+            raise UserErrors.UserNotFoundError('User not found.')
+        if not Utils.verify_password(password, user.password):
+            raise UserErrors.PasswordEmailNotMatching('Password does not match the account attached to this email.')
+        return True
