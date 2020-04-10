@@ -3,7 +3,7 @@ videos/
 .DS_Store
 venv/
 .vscode/
-.idea/
+.idea
 *.pyc
 .env
 Pipfile.lock
