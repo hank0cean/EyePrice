@@ -2,7 +2,7 @@ from typing import Dict
 import pymongo
 
 class Database(object):
-    URI = "mongodb://127.0.0.1:27017/pricing"
+    URI = "mongodb://127.0.0.1:27017/eyeprice"
     DATABASE = pymongo.MongoClient(URI).get_database()
 
     @staticmethod

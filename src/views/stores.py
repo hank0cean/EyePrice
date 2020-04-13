@@ -2,10 +2,12 @@ from flask import Blueprint, redirect, render_template, request, url_for
 import json
 
 from models.store import Store
+from models.user.decorators import requires_login
 
 store_blueprint = Blueprint('stores', __name__)
 
 @store_blueprint.route('/new', methods=['GET', 'POST'])
+@requires_login
 def new_store():
     if request.method == 'POST':
         store = Store(name=request.form['store_name'],
@@ -17,6 +19,7 @@ def new_store():
     return render_template('stores/new_store.html')
 
 @store_blueprint.route('/edit/<string:store_id>', methods=['GET', 'POST'])
+@requires_login
 def edit_store(store_id):
     store = Store.get_by_id(store_id)
     if store is not None:
@@ -34,12 +37,14 @@ def edit_store(store_id):
         return redirect(url_for('.all_stores'))
 
 @store_blueprint.route('/delete/<string:store_id>')
+@requires_login
 def delete_store(store_id):
     Store.get_by_id(store_id).remove_from_mongo()
     return redirect(url_for('.all_stores'))
 
 @store_blueprint.route('/', methods=['GET'])
 @store_blueprint.route('/all', methods=['GET'])
+@requires_login
 def all_stores():
     stores = Store.all()
     return render_template('stores/all_stores.html', stores=stores)

@@ -12,6 +12,17 @@
         <div class="container header-group">
             {% include 'header.html' %}
         </div>
+        <div class="container messages-group">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{category}}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
         <div class="content container body-group">
             {% block content %}
             {% endblock %}
