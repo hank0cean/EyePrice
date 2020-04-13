@@ -27,7 +27,7 @@ class Model(metaclass=ABCMeta):
 
     @classmethod
     def find_many_by(cls: Type[T], attribute: str, value: Union[str, Dict]) -> T:
-        return cls(**Database.find(cls.collection, {attribute: value}))
+        return [cls(**elem) for elem in Database.find(cls.collection, {attribute: value})]
 
     @classmethod
     def get_by_id(cls: Type[T], _id: str) -> T:

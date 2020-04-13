@@ -7,8 +7,9 @@ from models.item import Item
 @dataclass(eq=False)
 class Alert(Model):
     collection: str = field(default='alerts', init=False)
-    item_id: str
     price_limit: float
+    item_id: str
+    user_id: str
     _id: str = field(default_factory=lambda: uuid4().hex)
 
     def __post_init__(self):
@@ -16,8 +17,9 @@ class Alert(Model):
 
     def json(self) -> Dict:
         return {
-            'item_id': self.item_id,
             'price_limit': self.price_limit,
+            'item_id': self.item_id,
+            'user_id': self.user_id,
             '_id': self._id
         }
 

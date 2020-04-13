@@ -13,6 +13,7 @@ def register():
         try:
             if User.validate_register(email, password):
                 session['email'] = email
+                session['user_id'] = User.find_by_email(email)
                 return redirect(url_for('users.profile'))
         except UserErrors.UserError as error:
             return error.message
@@ -28,6 +29,7 @@ def login():
         try:
             if User.validate_login(email, password):
                 session['email'] = email
+                session['user_id'] = User.find_by_email(email)._id    # unnecessary double DB request. will need update
                 return redirect(url_for('users.profile'))
         except UserErrors.UserError as error:
             return error.message
@@ -36,6 +38,7 @@ def login():
 @user_blueprint.route('/logout', methods=['GET'])
 def logout():
     session['email'] = None
+    session['user_id'] = None
     return redirect(url_for('users.login'))
 
 @user_blueprint.route('/profile', methods=['GET'])

@@ -5,6 +5,16 @@ from models.store import Store
 
 alert_blueprint = Blueprint('alerts', __name__)
 
+@alert_blueprint.route('/', methods=['GET'])
+@alert_blueprint.route('/all', methods=['GET'])
+def all_alerts():
+    if 'email' in session:
+        alerts = Alert.find_many_by('user_id', session['user_id'])
+        for alert in alerts:
+            alert.item.load_price()
+        return render_template('alerts/all_alerts.html', alerts=alerts)
+    return "Please sign in."
+
 @alert_blueprint.route('/new', methods=['GET', 'POST'])
 def new_alert():
     if request.method == 'POST':
@@ -15,7 +25,7 @@ def new_alert():
         item = Item(item_url, store.tag_name, store.query, name)
         item.load_price()
         item.save_to_mongo()
-        Alert(item._id, price_limit).save_to_mongo()
+        Alert(price_limit, item._id, session['user_id']).save_to_mongo()
         return redirect(url_for('.all_alerts'))
     return render_template('alerts/new_alert.html')
 
@@ -37,11 +47,3 @@ def edit_alert(alert_id):
 def delete_alert(alert_id):
     Alert.get_by_id(alert_id).remove_from_mongo()
     return redirect(url_for('.all_alerts'))
-
-@alert_blueprint.route('/', methods=['GET'])
-@alert_blueprint.route('/all', methods=['GET'])
-def all_alerts():
-    alerts = Alert.all()
-    for alert in alerts:
-        alert.item.load_price()
-    return render_template('alerts/all_alerts.html', alerts=alerts)
