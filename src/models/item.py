@@ -4,6 +4,7 @@ from uuid import uuid4
 import requests
 import re
 from bs4 import BeautifulSoup
+
 from models.model import Model
 
 @dataclass(eq=False)

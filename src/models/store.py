@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from typing import Dict
 from uuid import uuid4
 import re
+
 from models.model import Model
 
 @dataclass(eq=False)

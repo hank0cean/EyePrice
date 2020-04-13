@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+
 from views.alerts import alert_blueprint
 from views.items import item_blueprint
 from views.stores import store_blueprint

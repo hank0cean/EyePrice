@@ -1,5 +1,6 @@
 from typing import Dict, List, TypeVar, Type, Union
 from abc import ABCMeta, abstractmethod
+
 from common.database import Database
 
 T = TypeVar('T', bound='Model')
