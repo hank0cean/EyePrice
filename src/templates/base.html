@@ -9,10 +9,10 @@
         <title>Title</title>
     </head>
     <body>
-        <div class="container navbar-group">
-            {% include 'navbar.html' %}
-        </div>
-        <div class="container messages-group">
+
+        {% include 'navbar.html' %}
+
+        <div class="container-fluid messages-group">
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     {% for category, message in messages %}
@@ -23,11 +23,11 @@
                 {% endif %}
             {% endwith %}
         </div>
-        <div class="content container body-group" style="display: flex; justify-content: center;">
+        <div class="content container-fluid body-group" style="display: flex; justify-content: center;">
             {% block content %}
             {% endblock %}
         </div>
-        <div class="container footer-group">
+        <div class="container-fluid footer-group">
             {% include 'footer.html' %}
         </div>
 

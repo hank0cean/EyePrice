@@ -1,38 +1,48 @@
-<div class="container navbar-group">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+<div class="container-fluid">
+    <header class="navbar navbar-expand-sm navbar-dark bg-dark mb-2 bd-navbar">
         <a class="navbar-brand" href='/'>EyePrice</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" 
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div id="navbarNavAltMarkup" class="collapse navbar-collapse">
-            <div class="navbar-nav">
-                <div class="btn-group mr-2">
-                    <button class="btn btn-light" type="button" href="{{ url_for('stores.all_stores')}}">Stores</button>
-                    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-left dropdown-menu-sm-right">
-                        <a class="dropdown-item" href="{{ url_for('stores.new_store') }}">New Store</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url_for('stores.all_stores') }}">Browse All</a>
-                    </div>
-                </div>
-                <div class="btn-group mr-2">
-                    <button class="btn btn-light" type="button" href="{{ url_for('alerts.all_alerts')}}">Alerts</button>
-                    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-left dropdown-menu-sm-right">
-                        <a class="dropdown-item" href="{{ url_for('alerts.new_alert') }}">New Alert</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url_for('alerts.all_alerts') }}">Browse All</a>
-                    </div>
-                </div>
-                <a class="nav-item nav-link" href="/users/login">Login</a>
-                <a class="nav-item nav-link" href="/users/register">Register</a>
-                <a class="nav-item nav-link" href="/users/logout">Logout</a>
+            <div class="navbar-nav-scroll">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown m-2">
+                        <button class="btn btn-dark" type="button" href="{{ url_for('stores.all_stores')}}">Stores</button>
+                        <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-left dropdown-menu-sm-right">
+                            <a class="dropdown-item" href="{{ url_for('stores.new_store') }}">New Store</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ url_for('stores.all_stores') }}">Browse All</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown m-2">
+                        <button class="btn btn-dark" type="button" href="{{ url_for('alerts.all_alerts')}}">Alerts</button>
+                        <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-lg-left">
+                            <a class="dropdown-item" href="{{ url_for('alerts.new_alert') }}">New Alert</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ url_for('alerts.all_alerts') }}">Browse All</a>
+                        </div>
+                    </li>
+                </ul>
             </div>
+            <ul class="navbar-nav mb-2 ml-2">
+                <li class="nav-item">
+                    <a class="nav-link" href="/users/logout">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/users/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/users/register">Register</a>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </header>
 </div>
