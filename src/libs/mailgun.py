@@ -11,7 +11,7 @@ class Mailgun:
     MAILGUN_DOMAIN = os.environ.get("MAILGUN_DOMAIN", None)
 
     NO_REPLY_EMAIL = "no-reply@eyeprice.com"
-    NO_REPLY_TITLE = "EyePrice - Do Not Reply"
+    NO_REPLY_TITLE = "EyePrice - Do Not Reply "
 
     @classmethod
     def send_email(cls, user_email: List[str], subject: str, text: str, html: str) -> Response:

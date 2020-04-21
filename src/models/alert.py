@@ -33,4 +33,4 @@ class Alert(Model):
                 user_email=User.get_by_id(self.user_id).email,
                 subject=f"Sale for item: {self.item.name}",
                 text=f"Your item '{self.item.name}' has reached a price below {self.price_limit}! Latest price is {self.item.price}. Click {self.item.url} to visit item page.",
-                html=f"<p>Your alert {self.item.name} has triggered and the item is priced under: {self.price_limit}.</p><p>The latest price is {self.item.price}. Visit item page <a href={self.item.url}>here</a>.</p>")
+                html=f"<p>Your alert {self.item.name} has triggered and the item is priced under: {self.price_limit}.</p><p>The latest price is {self.item.price}. Visit item page <a href={self.item.url}>here</a>.</p> ")
