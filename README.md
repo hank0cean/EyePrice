@@ -1,5 +1,5 @@
 # EyePrice
-Simple Flask app for tracking prices on a website.
+Simple Flask app for tracking prices on a store website.
 
 ## Installation & Setup
 1. Clone Repository from Github: https://www.github.com/hank0cean/EyePrice.git
